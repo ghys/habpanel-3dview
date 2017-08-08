@@ -1,0 +1,74 @@
+﻿<style>
+  .sweethome3d-modal .modal-dialog {
+    width: 300px;
+  }
+  .sweethome3d-modal .modal-content {
+    background-color: black;
+  }
+</style>
+<!--
+  Write a template for each object you wish to display a modal for,
+  and give it an id like so: "sweethome3d/<object_name>"
+-->
+<script type="text/ng-template" id="sweethome3d/Floor lamp">
+	<div style="min-height: 200px" ng-init="model={name: 'Floor lamp', item: 'Hue_Bureau'}">
+    <div class="box" style="width: 300px; height: 300px;">
+      <div>
+        <div>
+          <widget-colorpicker ng-model="model"></widget-colorpicker>
+        </div>
+      </div>
+    </div>
+  </div>
+</script>
+<script type="text/ng-template" id="sweethome3d/Radiator">
+	<div style="min-height: 200px" ng-init="model={name: 'Heating', item: 'MultiSensor_Temperature', unit:'°', subTextEnabled: true, step: 0.1, min: 18, max: 28}">
+    <div class="box" style="width: 300px; height: 300px;">
+      <div>
+        <div>
+          <widget-knob ng-model="model"></widget-knob>
+        </div>
+      </div>
+    </div>
+  </div>
+</script>
+<script type="text/ng-template" id="sweethome3d/Entry door">
+	<div>
+    <div class="box dummy" style="width: 300px; height: 300px;">
+      <div class="dummy-content">
+        Entry Door
+        <widget-icon iconset="'eclipse-smarthome-classic'" icon="'door'" size="200" state="(itemState('Porte_Ouverte',true) == 'ON') ? 'OPEN' : 'CLOSED'"></widget-icon>
+        <div class="value" style="font-size: 36pt">{{(itemState('Porte_Ouverte',true) == 'ON') ? 'OPEN' : 'CLOSED'}}</div>
+      </div>
+    </div>
+  </div>
+</script>
+<script type="text/ng-template" id="sweethome3d/DVD player">
+	<div style="min-height: 200px" ng-init="model={name: 'DVD player', item: 'Kodi_Powered', 'iconset': 'freepik-gadgets', icon: 'game-console', icon_size: 150}">
+    <div class="box switch" style="width: 300px; height: 300px;">
+      <div class="switch-content">
+        <widget-switch ng-model="model"></widget-switch>
+      </div>
+    </div>
+  </div>
+</script>
+<script type="text/ng-template" id="sweethome3d/TV">
+	<div style="min-height: 200px" ng-init="model={name: 'TV', item: 'Yamaha_Power', 'iconset': 'freepik-gadgets', icon: 'television-screen', icon_size: 150}">
+    <div class="box switch" style="width: 300px; height: 300px;">
+      <div class="switch-content">
+        <widget-switch ng-model="model"></widget-switch>
+      </div>
+    </div>
+  </div>
+</script>
+
+
+<div oc-lazy-load="'/static/sweethome3d.directive.js'">
+
+  <sweet-home-3-d
+      style="position: absolute; left: 0; right: 0; top: 0; bottom: 0"
+      lib-url="/static/sweethome3d/lib"
+      zip-url="/static/sweethome3d/SweetHome3DExample3.zip">
+  </sweet-home-3-d>
+
+</div>
