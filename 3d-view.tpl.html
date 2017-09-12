@@ -10,19 +10,31 @@
   Write a template for each object you wish to display a modal for,
   and give it an id like so: "sweethome3d/<object_name>"
 -->
-<script type="text/ng-template" id="sweethome3d/Floor lamp">
-  <div style="min-height: 200px" ng-init="model={name: 'Floor lamp', item: 'Hue_Bureau'}">
+<script type="text/ng-template" id="sweethome3d/Pendant lamp">
+	<div style="min-height: 200px" ng-init="model={name: 'Ceiling light', item: 'Hue_Cuisine', vertical: true, step: 10, showticks: true}">
     <div class="box" style="width: 300px; height: 300px;">
-      <div>
-        <div>
-          <widget-colorpicker ng-model="model"></widget-colorpicker>
-        </div>
+      <div class="slider-content">
+        <widget-slider ng-model="model"></widget-slider>
       </div>
     </div>
   </div>
 </script>
-<script type="text/ng-template" id="sweethome3d/Radiator">
-  <div style="min-height: 200px" ng-init="model={name: 'Heating', item: 'MultiSensor_Temperature', unit:'°', subTextEnabled: true, step: 0.1, min: 18, max: 28}">
+<script type="text/ng-template" id="sweethome3d/Wall uplight">
+	<div style="min-height: 200px" ng-init="model={name: 'Wall light', item: 'Hue_Salon', vertical: true, step: 10, showticks: true}">
+    <div class="box" style="width: 300px; height: 300px;">
+      <widget-slider ng-model="model"></widget-slider>
+    </div>
+  </div>
+</script>
+<script type="text/ng-template" id="sweethome3d/Floor uplight">
+	<div style="min-height: 200px" ng-init="model={name: 'Floor light', item: 'Hue_Bureau', step: 10, bigslider: true}">
+    <div class="box" style="width: 300px; height: 300px; padding-top: 50px;">
+      <widget-slider ng-model="model"></widget-slider>
+    </div>
+  </div>
+</script>
+<script type="text/ng-template" id="sweethome3d/Heat system">
+	<div style="min-height: 200px" ng-init="model={name: 'Heating', item: 'MultiSensor_Temperature', unit:'°', subTextEnabled: true, step: 0.1, min: 18, max: 28}">
     <div class="box" style="width: 300px; height: 300px;">
       <div>
         <div>
@@ -32,8 +44,8 @@
     </div>
   </div>
 </script>
-<script type="text/ng-template" id="sweethome3d/Entry door">
-  <div>
+<script type="text/ng-template" id="sweethome3d/Exterior door -4-">
+	<div>
     <div class="box dummy" style="width: 300px; height: 300px;">
       <div class="dummy-content">
         Entry Door
@@ -43,8 +55,8 @@
     </div>
   </div>
 </script>
-<script type="text/ng-template" id="sweethome3d/DVD player">
-  <div style="min-height: 200px" ng-init="model={name: 'DVD player', item: 'Kodi_Powered', 'iconset': 'freepik-gadgets', icon: 'game-console', icon_size: 150}">
+<script type="text/ng-template" id="sweethome3d/TV 16:9">
+	<div style="min-height: 200px" ng-init="model={name: 'TV', item: 'Yamaha_Power', 'iconset': 'freepik-gadgets', icon: 'television-screen', icon_size: 150}">
     <div class="box switch" style="width: 300px; height: 300px;">
       <div class="switch-content">
         <widget-switch ng-model="model"></widget-switch>
@@ -52,8 +64,8 @@
     </div>
   </div>
 </script>
-<script type="text/ng-template" id="sweethome3d/TV">
-  <div style="min-height: 200px" ng-init="model={name: 'TV', item: 'Yamaha_Power', 'iconset': 'freepik-gadgets', icon: 'television-screen', icon_size: 150}">
+<script type="text/ng-template" id="sweethome3d/Micro wave">
+	<div style="min-height: 200px" ng-init="model={name: 'Microwave', item: 'DemoSwitch', 'iconset': 'freepik-household', icon: 'microwave', icon_size: 150}">
     <div class="box switch" style="width: 300px; height: 300px;">
       <div class="switch-content">
         <widget-switch ng-model="model"></widget-switch>
@@ -61,14 +73,24 @@
     </div>
   </div>
 </script>
+<script type="text/ng-template" id="sweethome3d/Dishwasher -2-">
+	<div style="min-height: 200px" ng-init="model={name: 'Dishwasher', item: 'DemoSwitch', 'iconset': 'freepik-household', icon: 'microwave', icon_size: 150}">
+    <div class="box switch" style="width: 300px; height: 300px;">
+      <div class="switch-content">
+        <widget-switch ng-model="model"></widget-switch>
+      </div>
+    </div>
+  </div>
+</script>
+
 
 
 <div oc-lazy-load="'/static/sweethome3d.directive.js'">
 
-  <sweet-home-3-d
+  <sweet-home-3d
       style="position: absolute; left: 0; right: 0; top: 0; bottom: 0"
-      lib-url="/static/sweethome3d/lib"
-      zip-url="/static/sweethome3d/SweetHome3DExample3.zip">
-  </sweet-home-3-d>
+      lib-url="/static/SweetHome3DJSViewer-5.5/lib"
+      sh3d-url="/static/SweetHome3DJSViewer-5.5/default.sh3d">
+  </sweet-home-3d>
 
 </div>

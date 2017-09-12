@@ -3,13 +3,13 @@
 
     angular
         .module('app.widgets')
-        .directive('sweetHome3D', SweetHome3DDirective);
+        .directive('sweetHome3d', SweetHome3DDirective);
 
     SweetHome3DDirective.$inject = ['OHService', '$ocLazyLoad', '$timeout', '$uibModal', '$templateCache'];
     function SweetHome3DDirective(OHService, $ocLazyLoad, $timeout, $uibModal, $templateCache) {
-        // Usage:
+        // Usage: <sweet-home-3d lib-url="/static/sweethome3d/lib" sh3d-url="/static/sweethome3d/default.sh3d"
         //
-        // Creates:
+        // Creates: An interactive WebGL 3D View with SweetHome3dJS
         //
         var directive = {
             link: link,
@@ -21,23 +21,23 @@
                         '<label id="viewerProgressLabel" class="viewerComponent" style="margin-top: 2px; display: block; margin-left: 10px"></label>' +
                       '</div>' +
                       '<div ng-show="loadingComplete">' +
-                        '<input  id="aerialView"   class="viewerComponent" name="cameraType" type="radio" style="visibility: hidden;"/>' +
+                        '<input id="aerialView" class="viewerComponent" name="cameraType" type="radio" style="visibility: hidden;"/>' +
                           '<label class="viewerComponent" for="aerialView" style="visibility: hidden;">&nbsp;Aerial view</label>' +
                         '&nbsp;&nbsp;' +
                         '<input  id="virtualVisit" class="viewerComponent" name="cameraType" type="radio" style="visibility: hidden;"/>' +
                           '<label class="viewerComponent" for="virtualVisit" style="visibility: hidden;">&nbsp;Virtual visit</label>' +
-                        '<select id="levelsAndCameras" class="viewerComponent" style="visibility: hidden;"></select>' +
+                        '<select id="levelsAndCameras" class="viewerComponent" style="visibility: hidden; margin-left: 10px; background-color: var(--box-bg)"></select>' +
                         '<div id="currentObject"></div>' +
                       '</div>',
             scope: {
                 libUrl: '@',
-                zipUrl: '@'
+                sh3dUrl: '@'
             }
         };
         return directive;
 
         function link(scope, element, attrs) {
-            var homeUrl = attrs.zipUrl;
+            var homeUrl = attrs.sh3dUrl;
             var canvas = element[0].getElementsByTagName('canvas')[0];
             var gridsterItem = element[0].parentElement.parentElement.parentElement.parentElement.parentElement;
             while (!gridsterItem.style.width) {
@@ -85,7 +85,13 @@
                             var y = e.clientY; // - rect.top;
                             //console.log('mouse:' + x + ', ' + y);
                             var obj = scope.homePreviewComponent.getComponent3D().getClosestItemAt(x, y);
-                            document.getElementById('currentObject').innerText = (obj) ? obj.getName() : '';
+                            if (obj && obj.getName && $templateCache.get('sweethome3d/' + obj.getName())) {
+                                document.getElementById('currentObject').innerText = (obj && obj.getName) ? obj.getName() : '';
+                                document.getElementById(canvas.id).style.cursor = 'pointer';
+                            } else {
+                                document.getElementById('currentObject').innerText = '';
+                                document.getElementById(canvas.id).style.cursor = 'default';
+                            }
                         });
                         canvas.addEventListener("mouseup", function (e) {
                             var rect = canvas.getBoundingClientRect();
@@ -93,7 +99,7 @@
                             var y = e.clientY; // - rect.top;
                             //console.log('mouse:' + x + ', ' + y);
                             var obj = scope.homePreviewComponent.getComponent3D().getClosestItemAt(x, y);
-                            if (obj) {
+                            if (obj && obj.getName) {
                                 console.log(obj);
                                 if (!$templateCache.get('sweethome3d/' + obj.getName())) return;
                                 $uibModal.open({
@@ -146,8 +152,12 @@
                     attrs.libUrl + '/jszip.min.js',
                     attrs.libUrl + '/core.min.js',
                     attrs.libUrl + '/geom.min.js',
+                    attrs.libUrl + '/batik-svgpathparser.min.js',
+                    attrs.libUrl + '/jsXmlSaxParser.min.js',
                     attrs.libUrl + '/triangulator.min.js',
-                    attrs.libUrl + '/viewmodel.min.js']).then(function () {
+                    attrs.libUrl + '/viewmodel.min.js',
+                    attrs.libUrl + '/viewhome.min.js'
+                ], { serie: true }).then(function () {
                         $ocLazyLoad.load(attrs.libUrl + '/viewhome.min.js').then (function () {
                             $timeout(function (e) {
 

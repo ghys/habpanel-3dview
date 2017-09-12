@@ -1,8 +1,8 @@
 # 3D WebGL interactive smarthome control with openHAB, HABPanel & Sweet Home 3D
 
-This repository contains a directive to display and interact with WebGL exports from http://www.sweethome3d.com, and an example template to include to your HABPanel dashboard.
+This repository contains a directive to display and interact with WebGL views generated with http://www.sweethome3d.com, and an example template to include to your HABPanel dashboard.
 
-They allow embedding HTML5 exports from the [Export to HTML5 plugin](http://www.sweethome3d.com/support/forum/viewthread_thread,6708) and interacting with objects to show modal dialogs including other HABPanel widgets. The example template shows how to do that, based on the [SweetHome3DExample3.sh3d](http://www.sweethome3d.com/examples/SweetHome3DExample3.sh3d) example from http://www.sweethome3d.com/gallery.jsp.
+They use the [Sweet Home 3D JS Viewer](http://prdownloads.sourceforge.net/sweethome3d/SweetHome3DJSViewer-5.5.zip) to render the 3D view and allow interacting with objects to show modal dialogs including other HABPanel widgets. The example template shows how to do that, based on the [SweetHome3DExample3.sh3d](http://www.sweethome3d.com/examples/SweetHome3DExample3.sh3d) example from http://www.sweethome3d.com/gallery.jsp (you can also use the _default.sh3d_ file bundled with the Sweet Home 3D JS Viewer).
 
 Both the aerial view and the first-person view (aka. "Virtual Visit") can be used. Use the space bar or the radio buttons to switch between the two.
 
@@ -25,25 +25,25 @@ Both the aerial view and the first-person view (aka. "Virtual Visit") can be use
     
   (unless you want all the radiators to behave the same way)
   
-- Choose **Tools > Export to HTML5** from the menu
-
-- Extract the contents of the .zip archive in a subfolder (e.g. `sweethome3d`) of your openHAB instance's `conf/html` folder
+- Download [Sweet Home 3D JS Viewer](http://prdownloads.sourceforge.net/sweethome3d/SweetHome3DJSViewer-5.5.zip) and extract the contents of the archive to a subfolder (e.g. `sweethome3d`) of your openHAB instance's `conf/html` folder
 
 - The extracted contents will be available as static files served by openHAB:
    * `/static/sweethome3d/lib` - contains the additional JavaScript libs to display the WebGL view;
-   * `/static/sweethome3d/<project>.zip` - contains the contents of your design
-   * `/static/sweethome3d/viewHome.html` - test page
-   * `/static/sweethome3d/viewHomeInOverlay.html` - test page with an overlay
-   
-- You can test the results first by navigating to this URL: http://<your_openhab_instance>:8080/static/sweethome3d/viewHome.html
+   * `/static/sweethome3d/default.sh3d` - contains the contents of your design
+   * `/static/sweethome3d/SweetHome3DJSViewer.html` - test page
+   * `/static/sweethome3d/SweetHome3DJSViewerInOverlay.html` - test page with an overlay
+
+- You can test whether the viewer is working properly on your browser first by navigating to the test page's URL: http://<your_openhab_instance>:8080/static/sweethome3d/SweetHome3DJSViewer.html
 
 - Place the directive (_sweethome3d.directive.js_) from this repository in your `conf/html` folder
+
+- Copy the .sh3d file you created in Sweet Home 3D to your `conf/html` folder as well
 
 - Open HABPanel, create a dashboard (refer to the documentation or go to https://community.openhab.org/ for support), and add a Template widget
 
 - Edit the Template widget and choose the "Import from file..." option in the <key>⋮</key> menu. Import the _3d-view.tpl.html_ from this repository
 
-- You have to customize the template to fit your needs: near the end, change the values of `lib-url` and `zip-url` to where the lib folder resp. the zip file of your house resides
+- You have to customize the template to fit your needs: near the end, change the values of `lib-url` and `sh3d-url` to where the lib folder resp. the sh3d file of your house resides
 
 - Write a modal dialog template above for each object you wish to interact with:
 A modal template for an object named 'My Object' in Sweet Home 3D looks like this:
