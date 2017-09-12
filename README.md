@@ -17,7 +17,7 @@ Both the aerial view and the first-person view (aka. "Virtual Visit") can be use
 
 ## Instructions
 
-- Install Sweet Home 3D from http://www.sweethome3d.com and the _ExportToHTML5-1.2.sh3p_ plugin from http://www.sweethome3d.com/plugins/ExportToHTML5-1.2.sh3p
+- Install Sweet Home 3D from http://www.sweethome3d.com
 - Run Sweet Home 3D and design your house (or load an example)
 - Important Note: the directive will use the object names to display the appropriate modal window, so ensure all your objects have unique names unlike this:
 
